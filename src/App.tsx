@@ -10,7 +10,7 @@ Requirements for each password:
 - They must be at least 12 characters long.
 - Include uppercase letters, lowercase letters, numbers and special characters.
 - Be easily readable and memorable, without relying on personal information.
-- Each password must be labeled within <pass></pass> for easy identification and automatic use.`
+- Each password must be enclosed inside the <pass></pass> tag without formatting for easy identification and automatic use.`
 
 const markdownOptions: MarkdownToJSX.Options = {
   overrides: {
