@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
-import { MLCEngine, prebuiltAppConfig, type InitProgressReport, type ChatCompletionMessageParam, type ChatCompletionUserMessageParam, type ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
-import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx'
+import { type ChatCompletionMessageParam, type ChatCompletionUserMessageParam, type ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
+import Markdown from 'markdown-to-jsx'
+import { useMLCEngine } from './lib/llm/useMLCEngine'
+import { useAvailableModels } from './lib/llm/useAvailableModels'
+import { markdownOptions } from './lib/markdown/options'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
 const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
@@ -11,67 +14,6 @@ Requirements for each password:
 - Include uppercase letters, lowercase letters, numbers and special characters.
 - Be easily readable and memorable, without relying on personal information.
 - Each password must be enclosed inside the <pass></pass> tag without formatting for easy identification and automatic use.`
-
-const markdownOptions: MarkdownToJSX.Options = {
-  overrides: {
-    loading: {
-      component: LoadingBlock,
-    },
-    pass: {
-      component: PasswordBlock,
-    },
-    think: {
-      component: ThinkBlock,
-    },
-  },
-}
-
-function LoadingBlock() {
-  return (
-    <span style={{ fontWeight: 'bold', color: 'blue' }}>Loading...</span>
-  )
-}
-
-function ThinkBlock(props: React.PropsWithChildren) {
-  return (
-    <details>
-      <summary>Thinking...</summary>
-      {props.children}
-    </details>
-  )
-}
-
-function PasswordBlock(props: React.PropsWithChildren) {
-  return (
-    <span style={{ fontWeight: 'bold', color: 'blue' }}>{props.children}</span>
-  )
-}
-
-function useMLCEngine() {
-  const [engine, setEngine] = useState<MLCEngine | null>(null)
-  const [initProgressReport, setInitProgressReport] = useState<InitProgressReport | null>(null)
-
-  useEffect(() => {
-    const engine = new MLCEngine()
-    engine.setInitProgressCallback((report) => {
-      setInitProgressReport(report)
-    })
-    setEngine(engine)
-  }, [])
-
-  return { engine, initProgressReport }
-}
-
-function useAvailableModels() {
-  const [models, setModels] = useState<string[]>([])
-
-  useEffect(() => {
-    const modelList = prebuiltAppConfig.model_list.map((m) => m.model_id)
-    setModels(modelList)
-  }, [])
-
-  return models
-}
 
 function App() {
   const { engine, initProgressReport } = useMLCEngine()
