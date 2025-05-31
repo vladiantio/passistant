@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { type ChatCompletionMessageParam, type ChatCompletionUserMessageParam, type ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
+import type { ChatCompletionMessageParam, ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
 import Markdown from 'markdown-to-jsx'
 import { useMLCEngine } from './lib/llm/useMLCEngine'
 import { useAvailableModels } from './lib/llm/useAvailableModels'
