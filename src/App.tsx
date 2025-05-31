@@ -102,12 +102,11 @@ function App() {
   }, [curMessage])
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <div style={{ marginBottom: '20px' }}>
+    <div className="max-w-[800px] mx-auto p-5">
+      <div className="mb-5">
         <select 
           value={selectedModel}
           onChange={(e) => setSelectedModel(e.target.value)}
-          style={{ padding: '8px', marginRight: '10px' }}
         >
           {availableModels.map((model) => (
             <option key={model} value={model}>
@@ -118,20 +117,18 @@ function App() {
         <button onClick={handleConnect}>Connect</button>
       </div>
       {initProgressReport && (
-        <div style={{ marginBottom: '20px' }}>
+        <div className="mb-5">
           <p>{initProgressReport.text}</p>
           {initProgressReport.progress < 1 && <progress value={initProgressReport.progress} />}
         </div>
       )}
-      <div style={{ marginBottom: '20px' }}>
-        <div style={{ marginBottom: '10px' }}>
+      <div className="mb-5">
+        <div className="mb-5">
           {userMessages.map((message, index) => (
             <p 
               key={index} 
+              className="p-2 my-2 rounded-lg"
               style={{
-                padding: '10px',
-                margin: '5px 0',
-                borderRadius: '5px',
                 backgroundColor: message.role === 'user' ? '#f0f0f0' : '#e3f2fd',
                 textAlign: message.role === 'user' ? 'right' : 'left',
               }}
@@ -141,30 +138,23 @@ function App() {
             </p>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="flex gap-5">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            style={{ flex: 1, padding: '8px', minHeight: '60px' }}
+            className="flex-1 p-2 min-h-[60px]"
             placeholder="Type your message..."
             onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
           />
           <button 
             onClick={handleSend} 
             disabled={loading || !input.trim()}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: (loading || !input.trim()) ? '#cccccc' : '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: (loading || !input.trim()) ? 'not-allowed' : 'pointer'
-            }}
+            className="py-2 px-4 text-white border-0 rounded-lg cursor-pointer disabled:cursor-not-allowed bg-blue-500 disabled:bg-gray-400"
           >
             {loading ? 'Sending...' : 'Send'}
           </button>
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="flex gap-5">
           <label>
             Enable Thinking
             <input type="checkbox" checked={enableThinking} onChange={(e) => setEnableThinking(e.target.checked)} />

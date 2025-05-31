@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@mlc-ai/web-llm": "^0.2.79",
+    "@tailwindcss/vite": "^4.1.8",
     "markdown-to-jsx": "^7.7.6",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
