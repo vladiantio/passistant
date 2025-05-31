@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react'
 import { MLCEngine, prebuiltAppConfig, type InitProgressReport, type ChatCompletionMessageParam } from '@mlc-ai/web-llm'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
-const SYSTEM_PROMPT = 'You are a helpful multilingual password assistant. Generate a password that balance cryptographic strength with ease of reading and memorization for most users. The password should be at least 12 characters long. Do not include any spaces or other special characters.'
+const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
+Your task is to generate 5 unique passwords that strike a balance between cryptographic strength and ease of memorability for average users.
+
+Requirements for each password:
+- They must be at least 12 characters long.
+- Include uppercase letters, lowercase letters, numbers and special characters.
+- Be easily readable and memorable, without relying on personal information.
+- Each password must be labeled within <pass></pass> for easy identification and automatic use.`
 
 function useMLCEngine() {
   const [engine, setEngine] = useState<MLCEngine | null>(null)
