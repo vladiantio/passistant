@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { MLCEngine, prebuiltAppConfig, type InitProgressReport, type ChatCompletionMessageParam } from '@mlc-ai/web-llm'
+import { MLCEngine, prebuiltAppConfig, type InitProgressReport, type ChatCompletionMessageParam, type ChatCompletionUserMessageParam, type ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
+import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
 const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
@@ -10,6 +11,41 @@ Requirements for each password:
 - Include uppercase letters, lowercase letters, numbers and special characters.
 - Be easily readable and memorable, without relying on personal information.
 - Each password must be labeled within <pass></pass> for easy identification and automatic use.`
+
+const markdownOptions: MarkdownToJSX.Options = {
+  overrides: {
+    loading: {
+      component: LoadingBlock,
+    },
+    pass: {
+      component: PasswordBlock,
+    },
+    think: {
+      component: ThinkBlock,
+    },
+  },
+}
+
+function LoadingBlock() {
+  return (
+    <span style={{ fontWeight: 'bold', color: 'blue' }}>Loading...</span>
+  )
+}
+
+function ThinkBlock(props: React.PropsWithChildren) {
+  return (
+    <details>
+      <summary>Thinking...</summary>
+      {props.children}
+    </details>
+  )
+}
+
+function PasswordBlock(props: React.PropsWithChildren) {
+  return (
+    <span style={{ fontWeight: 'bold', color: 'blue' }}>{props.children}</span>
+  )
+}
 
 function useMLCEngine() {
   const [engine, setEngine] = useState<MLCEngine | null>(null)
@@ -47,7 +83,7 @@ function App() {
       content: SYSTEM_PROMPT,
     },
   ])
-  const [userMessages, setUserMessages] = useState<ChatCompletionMessageParam[]>([])
+  const [userMessages, setUserMessages] = useState<(ChatCompletionUserMessageParam | ChatCompletionAssistantMessageParam)[]>([])
   const [loading, setLoading] = useState(false)
   const [input, setInput] = useState('')
   const [curMessage, setCurMessage] = useState('')
@@ -65,16 +101,16 @@ function App() {
     if (!engine) return
     if (!input.trim() || !selectedModel) return
     
-    const message: ChatCompletionMessageParam = {
+    const message: ChatCompletionUserMessageParam = {
       role: 'user',
       content: input,
     }
     
     const newMessages = [...messages, message]
     setMessages(newMessages)
-    const aiMessage: ChatCompletionMessageParam = {
+    const aiMessage: ChatCompletionAssistantMessageParam = {
       role: 'assistant',
-      content: 'typing...',
+      content: '<loading />',
     };
     setUserMessages(prev => [
       ...prev,
@@ -156,10 +192,10 @@ function App() {
                 borderRadius: '5px',
                 backgroundColor: message.role === 'user' ? '#f0f0f0' : '#e3f2fd',
                 textAlign: message.role === 'user' ? 'right' : 'left',
-                whiteSpace: 'pre-wrap',
               }}
             >
-              <strong>{message.role}:</strong> {typeof message.content === 'string' ? message.content : JSON.stringify(message.content)}
+              <strong>{message.role}:</strong>
+              <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
             </p>
           ))}
         </div>
