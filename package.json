@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@mlc-ai/web-llm": "^0.2.79",
+    "markdown-to-jsx": "^7.7.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
