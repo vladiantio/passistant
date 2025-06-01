@@ -4,6 +4,10 @@ import Markdown from 'markdown-to-jsx'
 import { useMLCEngine } from './lib/llm/useMLCEngine'
 import { useAvailableModels } from './lib/llm/useAvailableModels'
 import { markdownOptions } from './lib/markdown/options'
+import { PromptInput, PromptInputAction, PromptInputActions, PromptInputTextarea } from './ui/prompt-input'
+import { Button } from './ui/button'
+import { ArrowUp, BrainCog, Square } from 'lucide-react'
+import { cn } from './lib/utils'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
 const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
@@ -138,28 +142,47 @@ function App() {
             </p>
           ))}
         </div>
-        <div className="flex gap-5">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="flex-1 p-2 min-h-[60px]"
+        <PromptInput
+          value={input}
+          onValueChange={(value) => setInput(value)}
+          onSubmit={handleSend}
+        >
+          <PromptInputTextarea
             placeholder="Type your message..."
-            onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
           />
-          <button 
-            onClick={handleSend} 
-            disabled={loading || !input.trim()}
-            className="py-2 px-4 text-white border-0 rounded-lg cursor-pointer disabled:cursor-not-allowed bg-blue-500 disabled:bg-gray-400"
-          >
-            {loading ? 'Sending...' : 'Send'}
-          </button>
-        </div>
-        <div className="flex gap-5">
-          <label>
-            Enable Thinking
-            <input type="checkbox" checked={enableThinking} onChange={(e) => setEnableThinking(e.target.checked)} />
-          </label>
-        </div>
+          <PromptInputActions className="justify-between">
+            <button
+              type="button"
+              onClick={() => setEnableThinking(prev => !prev)}
+              className={cn(
+                "rounded-full transition-all flex items-center gap-2 px-3 py-2 h-9",
+                enableThinking
+                  ? "bg-primary/15 text-primary hover:bg-primary/20"
+                  : "text-muted-foreground hover:bg-muted-foreground/15"
+              )}
+            >
+              <BrainCog className="size-4" />
+              Thinking
+            </button>
+            <PromptInputAction
+              tooltip={loading ? "Stop generation" : "Send message"}
+            >
+              <Button
+                variant="default"
+                size="icon"
+                className="rounded-full"
+                onClick={handleSend}
+                disabled={!input.trim()}
+              >
+                {loading ? (
+                  <Square className="size-5 fill-current" />
+                ) : (
+                  <ArrowUp className="size-5" />
+                )}
+              </Button>
+            </PromptInputAction>
+          </PromptInputActions>
+        </PromptInput>
       </div>
     </div>
   )
