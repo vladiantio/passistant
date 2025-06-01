@@ -30,7 +30,7 @@ function App() {
     },
   ])
   const [userMessages, setUserMessages] = useState<(ChatCompletionUserMessageParam | ChatCompletionAssistantMessageParam)[]>([])
-  const [loading, setLoading] = useState(false)
+  const [isTyping, setIsTyping] = useState(false)
   const [input, setInput] = useState('')
   const [curMessage, setCurMessage] = useState('')
   const [enableThinking, setEnableThinking] = useState(true)
@@ -64,7 +64,7 @@ function App() {
       aiMessage,
     ])
     setInput('')
-    setLoading(true)
+    setIsTyping(true)
 
     try {
       const completion = await engine.chat.completions.create({
@@ -95,7 +95,7 @@ function App() {
     } catch (error) {
       console.error('Error generating completion:', error)
     } finally {
-      setLoading(false)
+      setIsTyping(false)
     }
   }
 
@@ -165,16 +165,16 @@ function App() {
               Thinking
             </button>
             <PromptInputAction
-              tooltip={loading ? "Stop generation" : "Send message"}
+              tooltip={isTyping ? "Stop generation" : "Send message"}
             >
               <Button
                 variant="default"
                 size="icon"
                 className="rounded-full"
                 onClick={handleSend}
-                disabled={!input.trim()}
+                disabled={!input.trim() && !isTyping}
               >
-                {loading ? (
+                {isTyping ? (
                   <Square className="size-5 fill-current" />
                 ) : (
                   <ArrowUp className="size-5" />
