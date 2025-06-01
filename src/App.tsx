@@ -8,6 +8,7 @@ import { PromptInput, PromptInputAction, PromptInputActions, PromptInputTextarea
 import { Button } from './ui/button'
 import { ArrowUp, BrainCog, Square } from 'lucide-react'
 import { cn } from './lib/utils'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
 const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
@@ -34,14 +35,6 @@ function App() {
   const [input, setInput] = useState('')
   const [curMessage, setCurMessage] = useState('')
   const [enableThinking, setEnableThinking] = useState(true)
-
-  const handleConnect = () => {
-    if (!selectedModel) return
-    engine?.reload(selectedModel, {
-      temperature: 0.7,
-      top_p: 0.9,
-    })
-  }
 
   const handleSend = async () => {
     if (!engine) return
@@ -108,17 +101,18 @@ function App() {
   return (
     <div className="max-w-[800px] mx-auto p-5">
       <div className="mb-5">
-        <select 
-          value={selectedModel}
-          onChange={(e) => setSelectedModel(e.target.value)}
-        >
-          {availableModels.map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </select>
-        <button onClick={handleConnect}>Connect</button>
+        <Select value={selectedModel} onValueChange={setSelectedModel}>
+          <SelectTrigger className="border-0 dark:bg-transparent">
+            <SelectValue placeholder="Select a model" />
+          </SelectTrigger>
+          <SelectContent>
+            {availableModels.map((model) => (
+              <SelectItem key={model} value={model}>
+                {model}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       {initProgressReport && (
         <div className="mb-5">
@@ -129,17 +123,19 @@ function App() {
       <div className="mb-5">
         <div className="mb-5">
           {userMessages.map((message, index) => (
-            <p 
-              key={index} 
-              className="p-2 my-2 rounded-lg"
-              style={{
-                backgroundColor: message.role === 'user' ? '#f0f0f0' : '#e3f2fd',
-                textAlign: message.role === 'user' ? 'right' : 'left',
-              }}
+            <div
+              key={index}
+              className={cn("flex", message.role === 'user' && "justify-end")}
             >
-              <strong>{message.role}:</strong>
-              <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
-            </p>
+              <p 
+                className={cn(
+                  "p-2 my-2 rounded-lg",
+                  message.role === 'user' && "bg-input/40 w-1/2"
+                )}
+              >
+                <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
+              </p>
+            </div>
           ))}
         </div>
         <PromptInput
