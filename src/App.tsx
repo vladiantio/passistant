@@ -4,8 +4,13 @@ import Markdown from 'markdown-to-jsx'
 import { useMLCEngine } from './lib/llm/useMLCEngine'
 import { useAvailableModels } from './lib/llm/useAvailableModels'
 import { markdownOptions } from './lib/markdown/options'
-import { PromptInput, PromptInputAction, PromptInputActions, PromptInputTextarea } from './ui/prompt-input'
-import { Button } from './ui/button'
+import {
+  PromptInput,
+  PromptInputAction,
+  PromptInputActions,
+  PromptInputSubmitButton,
+  PromptInputTextarea,
+} from './ui/prompt-input'
 import { ArrowUp, BrainCog, Square } from 'lucide-react'
 import { cn } from './lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
@@ -21,7 +26,13 @@ Requirements for each password:
 - Each password must be enclosed inside the <pass></pass> tag without formatting for easy identification and automatic use.`
 
 function App() {
-  const { engine, initProgressReport, loadModel, currentModel } = useMLCEngine()
+  const {
+    engine,
+    initProgressReport,
+    loadModel,
+    currentModel,
+    isModelLoading,
+  } = useMLCEngine()
   const availableModels = useAvailableModels()
   const [selectedModel, setSelectedModel] = useState(DEFAULT_MODEL)
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([
@@ -44,12 +55,7 @@ function App() {
       return
     }
 
-    if (!input.trim() || !selectedModel) return
-
-    if (currentModel != selectedModel) {
-      const success = await loadModel(selectedModel)
-      if (!success) return
-    }
+    if (!input.trim() || !selectedModel || isModelLoading) return
     
     const message: ChatCompletionUserMessageParam = {
       role: 'user',
@@ -68,8 +74,13 @@ function App() {
       aiMessage,
     ])
     setInput('')
-    setIsTyping(true)
 
+    if (currentModel != selectedModel) {
+      const success = await loadModel(selectedModel)
+      if (!success) return
+    }
+
+    setIsTyping(true)
     try {
       const completion = await engine.chat.completions.create({
         stream: true,
@@ -165,6 +176,7 @@ function App() {
           value={input}
           onValueChange={(value) => setInput(value)}
           onSubmit={handleSend}
+          disabled={(!input.trim() || !selectedModel || isModelLoading) && !isTyping}
         >
           <PromptInputTextarea
             placeholder="Type your message..."
@@ -186,19 +198,17 @@ function App() {
             <PromptInputAction
               tooltip={isTyping ? "Stop generation" : "Send message"}
             >
-              <Button
+              <PromptInputSubmitButton
                 variant="default"
                 size="icon"
                 className="rounded-full"
-                onClick={handleSend}
-                disabled={!input.trim() && !isTyping}
               >
                 {isTyping ? (
                   <Square className="size-5 fill-current" />
                 ) : (
                   <ArrowUp className="size-5" />
                 )}
-              </Button>
+              </PromptInputSubmitButton>
             </PromptInputAction>
           </PromptInputActions>
         </PromptInput>
