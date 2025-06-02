@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils"
 import React, {
   createContext,
   useContext,
-  useRef,
   useState,
 } from "react"
+import { Button } from "./button"
 
 type PromptInputContextType = {
   isLoading: boolean
@@ -47,6 +47,7 @@ type PromptInputProps = {
   onSubmit?: () => void
   children: React.ReactNode
   className?: string
+  disabled?: boolean
 }
 
 function PromptInput({
@@ -57,6 +58,7 @@ function PromptInput({
   onValueChange,
   onSubmit,
   children,
+  disabled = false,
 }: PromptInputProps) {
   const [internalValue, setInternalValue] = useState(value || "")
 
@@ -74,6 +76,7 @@ function PromptInput({
           setValue: onValueChange ?? handleChange,
           maxHeight,
           onSubmit,
+          disabled,
         }}
       >
         <div
@@ -100,12 +103,11 @@ function PromptInputTextarea({
   ...props
 }: PromptInputTextareaProps) {
   const { value, setValue, maxHeight, onSubmit, disabled } = usePromptInput()
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      onSubmit?.()
+      if (!disabled) onSubmit?.()
     }
     onKeyDown?.(e)
   }
@@ -113,7 +115,6 @@ function PromptInputTextarea({
   return (
     <label className="after:absolute after:inset-0 after:block after:cursor-text">
       <Textarea
-        ref={textareaRef}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -122,8 +123,7 @@ function PromptInputTextarea({
           !disableAutosize && "field-sizing-content",
           className
         )}
-        rows={1}
-        disabled={disabled}
+        required
         style={{
           maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight,
         }}
@@ -175,9 +175,34 @@ function PromptInputAction({
   )
 }
 
+type PromptInputSubmitButtonProps =
+  Omit<React.ComponentProps<typeof Button>, "disabled" | "type">
+
+function PromptInputSubmitButton({
+  onClick,
+  ...props
+}: PromptInputSubmitButtonProps) {
+  const { disabled, onSubmit } = usePromptInput()
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    onSubmit?.()
+    onClick?.(e)
+  }
+
+  return (
+    <Button
+      type="button"
+      disabled={disabled}
+      onClick={handleClick}
+      {...props}
+    />
+  )
+}
+
 export {
   PromptInput,
   PromptInputTextarea,
   PromptInputActions,
   PromptInputAction,
+  PromptInputSubmitButton,
 }
