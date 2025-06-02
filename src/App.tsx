@@ -21,7 +21,7 @@ Requirements for each password:
 - Each password must be enclosed inside the <pass></pass> tag without formatting for easy identification and automatic use.`
 
 function App() {
-  const { engine, initProgressReport } = useMLCEngine()
+  const { engine, initProgressReport, loadModel, currentModel } = useMLCEngine()
   const availableModels = useAvailableModels()
   const [selectedModel, setSelectedModel] = useState(DEFAULT_MODEL)
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([
@@ -38,7 +38,18 @@ function App() {
 
   const handleSend = async () => {
     if (!engine) return
+
+    if (isTyping) {
+      await engine.interruptGenerate()
+      return
+    }
+
     if (!input.trim() || !selectedModel) return
+
+    if (currentModel != selectedModel) {
+      const success = await loadModel(selectedModel)
+      if (!success) return
+    }
     
     const message: ChatCompletionUserMessageParam = {
       role: 'user',
@@ -67,6 +78,8 @@ function App() {
         },
         messages: newMessages,
         model: selectedModel,
+        temperature: 0.5,
+        top_p: 0.9,
         extra_body: {
           enable_thinking: enableThinking,
         },
@@ -101,23 +114,33 @@ function App() {
   return (
     <div className="max-w-[800px] mx-auto p-5">
       <div className="mb-5">
-        <Select value={selectedModel} onValueChange={setSelectedModel}>
-          <SelectTrigger className="border-0 dark:bg-transparent">
-            <SelectValue placeholder="Select a model" />
-          </SelectTrigger>
-          <SelectContent>
-            {availableModels.map((model) => (
-              <SelectItem key={model} value={model}>
-                {model}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="flex items-center gap-2">
+          <Select 
+            value={selectedModel} 
+            onValueChange={setSelectedModel}
+          >
+            <SelectTrigger className="border-0 dark:bg-transparent flex-1">
+              <SelectValue placeholder="Select a model" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableModels.map((model) => (
+                <SelectItem key={model} value={model}>
+                  {model}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
-      {initProgressReport && (
-        <div className="mb-5">
-          <p>{initProgressReport.text}</p>
-          {initProgressReport.progress < 1 && <progress value={initProgressReport.progress} />}
+      {initProgressReport && initProgressReport.progress < 1 && (
+        <div className="mb-5 space-y-2">
+          <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
+          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+            <div 
+              className="bg-blue-600 h-2.5 rounded-full transition-all" 
+              style={{ width: `${initProgressReport.progress * 100}%` }}
+            />
+          </div>
         </div>
       )}
       <div className="mb-5">
