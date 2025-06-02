@@ -4,7 +4,7 @@ import type { MLCEngine, InitProgressReport } from '@mlc-ai/web-llm'
 export function useMLCEngine() {
   const [engine, setEngine] = useState<MLCEngine | null>(null)
   const [initProgressReport, setInitProgressReport] = useState<InitProgressReport | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isModelLoading, setIsModelLoading] = useState(false)
   const [currentModel, setCurrentModel] = useState<string | null>(null)
   const [error, setError] = useState<Error | null>(null)
 
@@ -12,7 +12,7 @@ export function useMLCEngine() {
     if (!engine) return false;
     
     try {
-      setIsLoading(true)
+      setIsModelLoading(true)
       setError(null)
       await engine.reload(model)
       setCurrentModel(model)
@@ -22,7 +22,7 @@ export function useMLCEngine() {
       setError(err instanceof Error ? err : new Error('Failed to load model'))
       return false
     } finally {
-      setIsLoading(false)
+      setIsModelLoading(false)
     }
   }, [engine])
 
@@ -46,7 +46,7 @@ export function useMLCEngine() {
   return { 
     engine, 
     initProgressReport, 
-    isLoading,
+    isModelLoading,
     currentModel,
     error,
     loadModel 
