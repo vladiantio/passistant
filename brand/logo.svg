@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="a"
+   width="128"
+   height="128"
+   version="1.1"
+   viewBox="0 0 128 128"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="4.3365533"
+     inkscape:cx="49.924441"
+     inkscape:cy="44.390092"
+     inkscape:window-width="1920"
+     inkscape:window-height="1006"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="a" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="b"
+       x1="13.887"
+       x2="113.83"
+       y1="15.06"
+       y2="112.8"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#38bdf8"
+         offset="0"
+         id="stop1" />
+      <stop
+         stop-color="#4338ca"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath20">
+      <path
+         id="path20"
+         style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke-linejoin:round;paint-order:stroke markers fill;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m 38.816406,38.117188 c -14.83107,0 -27,11.517647 -27,25.882812 0,14.365165 12.16893,25.880859 27,25.880859 h 50.367188 c 14.831066,0 26.999996,-11.515694 26.999996,-25.880859 0,-14.365165 -12.16893,-25.882813 -26.999996,-25.882812 z m 0,6 h 50.367188 c 11.760926,0 20.999996,8.895275 20.999996,19.882812 0,10.987537 -9.23907,19.880859 -20.999996,19.880859 H 38.816406 c -11.760929,0 -21,-8.893322 -21,-19.880859 0,-10.987537 9.239071,-19.882812 21,-19.882812 z m -0.78125,9.599609 A 10.282598,10.282598 0 0 0 27.751953,64 10.282598,10.282598 0 0 0 38.035156,74.283203 10.282598,10.282598 0 0 0 48.316406,64 10.282598,10.282598 0 0 0 38.035156,53.716797 Z m 25.964844,0 A 10.282598,10.282598 0 0 0 53.716797,64 10.282598,10.282598 0 0 0 64,74.283203 10.282598,10.282598 0 0 0 74.28125,64 10.282598,10.282598 0 0 0 64,53.716797 Z m 25.964844,0 A 10.282598,10.282598 0 0 0 79.681641,64 10.282598,10.282598 0 0 0 89.964844,74.283203 10.282598,10.282598 0 0 0 100.24805,64 10.282598,10.282598 0 0 0 89.964844,53.716797 Z" />
+    </clipPath>
+  </defs>
+  <rect
+     width="128"
+     height="128"
+     rx="64"
+     fill="url(#b)"
+     id="rect20"
+     x="0"
+     y="0"
+     style="display:inline;fill:#ffffff;fill-opacity:1" />
+  <rect
+     width="128"
+     height="128"
+     rx="0"
+     fill="url(#b)"
+     id="rect2"
+     x="0"
+     y="0"
+     style="display:inline"
+     clip-path="url(#clipPath20)" />
+</svg>
