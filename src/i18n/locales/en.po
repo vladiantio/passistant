@@ -21,7 +21,7 @@ msgid "app.welcome"
 msgstr "Hi, I'm Passistant!"
 
 msgid "app.welcomeDescription"
-msgstr "I can help you generate strong, secure passwords."
+msgstr "I can help you generate strong, secure passwords. I will not send any data to a server."
 
 #: UI Elements
 msgid "ui.modelSelector.placeholder"
