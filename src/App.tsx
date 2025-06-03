@@ -15,16 +15,9 @@ import { ArrowUp, BrainCog, Square } from 'lucide-react'
 import { cn } from './lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { fixUnclosedTags } from './lib/markdown/utils'
+import { t } from '@lingui/core/macro'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
-const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
-Your task is to generate 5 unique passwords that strike a balance between cryptographic strength and ease of memorability for average users.
-
-Requirements for each password:
-- They must be at least 12 characters long.
-- Include uppercase letters, lowercase letters, numbers and special characters.
-- Be easily readable and memorable, without relying on personal information.
-- Each password must be enclosed inside the <pass> tag without formatting for easy identification and automatic use. Example: <pass>password</pass>`
 
 function App() {
   const {
@@ -39,7 +32,7 @@ function App() {
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([
     {
       role: 'system',
-      content: SYSTEM_PROMPT,
+      content: t`system.prompt`,
     },
   ])
   const [userMessages, setUserMessages] = useState<(ChatCompletionUserMessageParam | ChatCompletionAssistantMessageParam)[]>([])
@@ -125,17 +118,6 @@ function App() {
 
   return (
     <div className="max-w-[800px] mx-auto p-5">
-      {initProgressReport && initProgressReport.progress < 1 && (
-        <div className="mb-5 space-y-2">
-          <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div 
-              className="bg-blue-600 h-2.5 rounded-full transition-all" 
-              style={{ width: `${initProgressReport.progress * 100}%` }}
-            />
-          </div>
-        </div>
-      )}
       <div className="mb-5">
         <div className="mb-5">
           {userMessages.map((message, index) => (
@@ -153,6 +135,17 @@ function App() {
               </div>
             </div>
           ))}
+          {initProgressReport && initProgressReport.progress < 1 && (
+            <div className="space-y-2">
+              <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div 
+                  className="bg-blue-600 h-2.5 rounded-full transition-all" 
+                  style={{ width: `${initProgressReport.progress * 100}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
         <PromptInput
           value={input}
@@ -161,7 +154,7 @@ function App() {
           disabled={(!input.trim() || !selectedModel || isModelLoading) && !isTyping}
         >
           <PromptInputTextarea
-            placeholder="Type your message..."
+            placeholder={t`ui.prompt.placeholder`}
           />
           <PromptInputActions className="justify-between">
             <div className="flex items-center">
@@ -176,14 +169,14 @@ function App() {
                 )}
               >
                 <BrainCog className="size-4" />
-                Reasoning
+                {t`feature.reasoning`}
               </button>
               <Select 
                 value={selectedModel} 
                 onValueChange={setSelectedModel}
               >
                 <SelectTrigger className="border-0 dark:bg-transparent shadow-none rounded-full">
-                  <SelectValue placeholder="Select a model" />
+                  <SelectValue placeholder={t`placeholder.model`} />
                 </SelectTrigger>
                 <SelectContent>
                   {availableModels.map((model) => (
@@ -195,7 +188,7 @@ function App() {
               </Select>
             </div>
             <PromptInputAction
-              tooltip={isTyping ? "Stop generation" : "Send message"}
+              tooltip={isTyping ? t`button.stop` : t`button.send`}
             >
               <PromptInputSubmitButton
                 variant="default"
