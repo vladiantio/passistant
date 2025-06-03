@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Passistant\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-03 08:44:26+0000\n"
+"PO-Revision-Date: 2025-06-03 08:44:26+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: App
+msgid "app.name"
+msgstr "Passistant"
+
+msgid "app.description"
+msgstr "Tu asistente personal de contraseñas con IA"
+
+#: UI Elements
+msgid "ui.modelSelector.placeholder"
+msgstr "Selecciona un modelo"
+
+msgid "ui.prompt.placeholder"
+msgstr "Escribe tu mensaje..."
+
+#: Buttons
+msgid "button.send"
+msgstr "Enviar mensaje"
+
+msgid "button.stop"
+msgstr "Detener generación"
+
+#: Features
+msgid "feature.reasoning"
+msgstr "Razonamiento"
+
+#: System Prompt
+msgid "system.prompt"
+msgstr "Eres Passistant, un asistente de contraseñas con IA, especializado en crear contraseñas que sean seguras y fáciles de recordar.\nTu tarea es generar 5 contraseñas únicas que equilibren la fuerza criptográfica y la facilidad de memorización para usuarios promedio.\n\nRequisitos para cada contraseña:\n- Deben tener al menos 12 caracteres de longitud.\n- Incluir letras mayúsculas, minúsculas, números y caracteres especiales.\n- Ser fácilmente legibles y memorables, sin depender de información personal.\n- Cada contraseña debe estar encerrada dentro de la etiqueta <pass> sin formato para facilitar su identificación y uso automático. Ejemplo: <pass>contraseña</pass>"
+
+#: Errors
+msgid "error.completionFailed"
+msgstr "No se pudo generar la respuesta. Por favor, inténtalo de nuevo."
+
+#: Loading States
+msgid "loading.model"
+msgstr "Cargando modelo..."
+
+msgid "loading.thinking"
+msgstr "Pensando..."

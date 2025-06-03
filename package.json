@@ -11,6 +11,9 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@lingui/core": "^5.3.2",
+    "@lingui/detect-locale": "^5.3.2",
+    "@lingui/react": "^5.3.2",
     "@mlc-ai/web-llm": "^0.2.79",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
@@ -27,6 +30,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@lingui/cli": "^5.3.2",
+    "@lingui/swc-plugin": "^5.5.2",
+    "@lingui/vite-plugin": "^5.3.2",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

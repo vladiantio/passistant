@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Passistant\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-03 08:44:26+0000\n"
+"PO-Revision-Date: 2025-06-03 08:44:26+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: App
+msgid "app.name"
+msgstr "Passistant"
+
+msgid "app.description"
+msgstr "Your personal AI password assistant"
+
+#: UI Elements
+msgid "ui.modelSelector.placeholder"
+msgstr "Select a model"
+
+msgid "ui.prompt.placeholder"
+msgstr "Type your message..."
+
+#: Buttons
+msgid "button.send"
+msgstr "Send message"
+
+msgid "button.stop"
+msgstr "Stop generation"
+
+#: Features
+msgid "feature.reasoning"
+msgstr "Reasoning"
+
+#: System Prompt
+msgid "system.prompt"
+msgstr "You are Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.\nYour task is to generate 5 unique passwords that strike a balance between cryptographic strength and ease of memorability for average users.\n\nRequirements for each password:\n- They must be at least 12 characters long.\n- Include uppercase letters, lowercase letters, numbers and special characters.\n- Be easily readable and memorable, without relying on personal information.\n- Each password must be enclosed inside the <pass> tag without formatting for easy identification and automatic use. Example: <pass>password</pass>"
+
+#: Errors
+msgid "error.completionFailed"
+msgstr "Failed to generate completion. Please try again."
+
+#: Loading States
+msgid "loading.model"
+msgstr "Loading model..."
+
+msgid "loading.thinking"
+msgstr "Thinking..."
