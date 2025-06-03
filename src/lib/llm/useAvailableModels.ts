@@ -6,7 +6,9 @@ export function useAvailableModels() {
   useEffect(() => {
     const init = async () => {
       const { prebuiltAppConfig } = await import('@mlc-ai/web-llm')
-      const modelList = prebuiltAppConfig.model_list.map((m) => m.model_id)
+      const modelList = prebuiltAppConfig.model_list
+        .toSorted((a, b) => (a.vram_required_MB ?? 0) - (b.vram_required_MB ?? 0))
+        .map((m) => m.model_id)
       setModels(modelList)
     }
     init()
