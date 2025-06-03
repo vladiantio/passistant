@@ -155,7 +155,7 @@ function App() {
             <img src="/favicon.svg" alt="Logo" className="size-16" />
             <h1 className="text-2xl font-bold">{t`app.welcome`}</h1>
           </div>
-          <p className="text-muted-foreground">{t`app.welcomeDescription`}</p>
+          <p className="text-muted-foreground text-center text-pretty">{t`app.welcomeDescription`}</p>
         </div>
       )}
       <PromptInput

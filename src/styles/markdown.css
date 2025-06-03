@@ -37,7 +37,7 @@
     }
 
     p {
-      @apply text-base;
+      @apply text-base text-pretty;
       margin-block: 1rem;
       margin-block: 1lh;
     }
