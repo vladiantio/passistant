@@ -1,18 +1,31 @@
 import { Button } from "@/ui/button"
+import { MessageLoading } from "@/ui/message";
 import { copyToClipboard } from "@/utils/clipboard";
 import { Check, Copy } from "lucide-react"
 import { useState } from "react";
+import { t } from "@lingui/core/macro"
+import { ShiningText } from "@/ui/shining-text";
 
 export function LoadingBlock() {
   return (
-    <span style={{ fontWeight: 'bold', color: 'blue' }}>Loading...</span>
+    <MessageLoading />
   )
 }
 
-export function ThinkBlock(props: React.PropsWithChildren) {
+type ThinkBlockProps = React.PropsWithChildren & {
+  isThinking?: boolean
+}
+
+export function ThinkBlock(props: ThinkBlockProps) {
   return (
     <details className="mb-6">
-      <summary className="select-none">Thinking...</summary>
+      <summary className="select-none">
+        {props.isThinking ? (
+          <ShiningText>{t`loading.thinking`}</ShiningText>
+        ) : (
+          t`feature.reasoning`
+        )}
+      </summary>
       <blockquote>
         {props.children}
       </blockquote>
