@@ -175,22 +175,28 @@ function App() {
               className={cn(
                 "rounded-full transition-all flex items-center gap-2 px-3 py-2 h-9",
                 enableThinking
-                  ? "bg-primary/15 text-primary hover:bg-primary/20"
+                  ? "bg-secondary/15 text-secondary hover:bg-secondary/20"
                   : "text-muted-foreground hover:bg-muted-foreground/15"
               )}
             >
               <BrainCog className="size-4" />
               {t`feature.reasoning`}
             </button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full"
-              title={t`button.settings`}
-              onClick={() => setShowSettings(prev => !prev)}
+            <PromptInputAction
+              className="bg-secondary text-secondary-foreground"
+              arrowClassName="bg-secondary fill-secondary"
+              tooltip={t`button.settings`}
+              disabled={false}
             >
-              <Settings2 className="size-4" />
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn("rounded-full", showSettings && "!text-secondary")}
+                onClick={() => setShowSettings(prev => !prev)}
+              >
+                <Settings2 className="size-4" />
+              </Button>
+            </PromptInputAction>
             {showSettings && (
               <Select 
                 value={selectedModel} 
@@ -208,17 +214,23 @@ function App() {
                 </SelectContent>
               </Select>
             )}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full"
-              title={t`button.github`}
-              asChild
+            <PromptInputAction
+              className="bg-secondary text-secondary-foreground"
+              arrowClassName="bg-secondary fill-secondary"
+              tooltip={t`button.github`}
+              disabled={false}
             >
-              <a href="https://github.com/vladiantio/passistant" target="_blank" rel="noopener noreferrer">
-                <GithubIcon className="size-4" />
-              </a>
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+                asChild
+              >
+                <a href="https://github.com/vladiantio/passistant" target="_blank" rel="noopener noreferrer">
+                  <GithubIcon className="size-4" />
+                </a>
+              </Button>
+            </PromptInputAction>
           </div>
           <PromptInputAction
             tooltip={isTyping ? t`button.stop` : t`button.send`}
