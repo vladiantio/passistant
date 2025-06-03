@@ -14,6 +14,7 @@ import {
 import { ArrowUp, BrainCog, Square } from 'lucide-react'
 import { cn } from './lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { fixUnclosedTags } from './lib/markdown/utils'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
 const SYSTEM_PROMPT = `Act as Passistant, an AI-powered password assistant, specialized in creating passwords that are both secure and memorable.
@@ -118,7 +119,7 @@ function App() {
 
   useEffect(() => {
     if (curMessage) {
-      setUserMessages(prev => prev.map((message, i) => i === prev.length - 1 ? { ...message, content: curMessage } : message))
+      setUserMessages(prev => prev.map((message, i) => i === prev.length - 1 ? { ...message, content: fixUnclosedTags(curMessage) } : message))
     }
   }, [curMessage])
 
@@ -142,14 +143,14 @@ function App() {
               key={index}
               className={cn("flex", message.role === 'user' && "justify-end")}
             >
-              <p 
+              <div 
                 className={cn(
                   "p-2 my-2 rounded-lg markdown-content",
                   message.role === 'user' && "bg-input/40 max-w-1/2"
                 )}
               >
                 <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
-              </p>
+              </div>
             </div>
           ))}
         </div>
