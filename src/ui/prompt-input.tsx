@@ -149,6 +149,8 @@ function PromptInputActions({
 
 type PromptInputActionProps = {
   className?: string
+  arrowClassName?: string
+  disabled?: boolean
   tooltip: React.ReactNode
   children: React.ReactNode
   side?: "top" | "bottom" | "left" | "right"
@@ -158,6 +160,8 @@ function PromptInputAction({
   tooltip,
   children,
   className,
+  arrowClassName,
+  disabled: disabledProp,
   side = "top",
   ...props
 }: PromptInputActionProps) {
@@ -165,10 +169,14 @@ function PromptInputAction({
 
   return (
     <Tooltip {...props}>
-      <TooltipTrigger asChild disabled={disabled}>
+      <TooltipTrigger asChild disabled={disabledProp ?? disabled}>
         {children}
       </TooltipTrigger>
-      <TooltipContent side={side} className={className}>
+      <TooltipContent
+        side={side}
+        className={className}
+        arrowClassName={arrowClassName}
+      >
         {tooltip}
       </TooltipContent>
     </Tooltip>
