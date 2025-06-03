@@ -37,6 +37,12 @@ msgstr "Send message"
 msgid "button.stop"
 msgstr "Stop generation"
 
+msgid "button.settings"
+msgstr "Settings"
+
+msgid "button.github"
+msgstr "Star on GitHub"
+
 #: Features
 msgid "feature.reasoning"
 msgstr "Reasoning"

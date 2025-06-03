@@ -11,11 +11,12 @@ import {
   PromptInputSubmitButton,
   PromptInputTextarea,
 } from './ui/prompt-input'
-import { ArrowUp, BrainCog, Square } from 'lucide-react'
+import { ArrowUp, BrainCog, GithubIcon, Settings2, Square } from 'lucide-react'
 import { cn } from './lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { fixUnclosedTags } from './lib/markdown/utils'
 import { t } from '@lingui/core/macro'
+import { Button } from './ui/button'
 
 const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
 
@@ -40,6 +41,7 @@ function App() {
   const [input, setInput] = useState('')
   const [curMessage, setCurMessage] = useState('')
   const [enableThinking, setEnableThinking] = useState(true)
+  const [showSettings, setShowSettings] = useState(false)
 
   const handleSend = async () => {
     if (!engine) return
@@ -180,21 +182,43 @@ function App() {
               <BrainCog className="size-4" />
               {t`feature.reasoning`}
             </button>
-            <Select 
-              value={selectedModel} 
-              onValueChange={setSelectedModel}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              title={t`button.settings`}
+              onClick={() => setShowSettings(prev => !prev)}
             >
-              <SelectTrigger className="border-0 dark:bg-transparent shadow-none rounded-full">
-                <SelectValue placeholder={t`placeholder.model`} />
-              </SelectTrigger>
-              <SelectContent>
-                {availableModels.map((model) => (
-                  <SelectItem key={model} value={model}>
-                    {model}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <Settings2 className="size-4" />
+            </Button>
+            {showSettings && (
+              <Select 
+                value={selectedModel} 
+                onValueChange={setSelectedModel}
+              >
+                <SelectTrigger className="border-0 dark:bg-transparent shadow-none rounded-full">
+                  <SelectValue placeholder={t`placeholder.model`} />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableModels.map((model) => (
+                    <SelectItem key={model} value={model}>
+                      {model}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              title={t`button.github`}
+              asChild
+            >
+              <a href="https://github.com/vladiantio/passistant" target="_blank" rel="noopener noreferrer">
+                <GithubIcon className="size-4" />
+              </a>
+            </Button>
           </div>
           <PromptInputAction
             tooltip={isTyping ? t`button.stop` : t`button.send`}
