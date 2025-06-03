@@ -32,7 +32,8 @@ By participating in this project, you agree to abide by our [Code of Conduct](CO
 ### Prerequisites
 
 - Node.js (version 18 or later)
-- npm (version 9 or later) (recommended using pnpm)
+- npm (version 9 or later)
+- pnpm
 - Git
 
 ### Fork and Clone
@@ -90,7 +91,7 @@ Create a new branch for your feature or bugfix:
 Run the test suite before submitting your changes:
 
 ```bash
-npm test
+pnpm test
 ```
 
 ### Linting
