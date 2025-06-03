@@ -119,7 +119,7 @@ function PromptInputTextarea({
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "text-primary p-1 min-h-8 w-full resize-none border-none dark:bg-transparent shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
+          "p-1 min-h-9 w-full resize-none border-none dark:bg-transparent shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
           !disableAutosize && "field-sizing-content",
           className
         )}
