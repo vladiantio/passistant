@@ -18,4 +18,8 @@ test('fixes unclosed tags', () => {
     .toBe('<think>Thinking...</think><pass>Passw0rd</pass>')
   expect(fixUnclosedTags('<think>Thinking...</think><pass>Passw0rd'))
     .toBe('<think>Thinking...</think><pass>Passw0rd</pass>')
+  expect(fixUnclosedTags('<think>...and be enclosed in <pass> tags.'))
+    .toBe('<think>...and be enclosed in <pass> tags.</think>')
+  expect(fixUnclosedTags('<think>...and be enclosed in <pass> tags. The example is <pass>password</pass>.'))
+    .toBe('<think>...and be enclosed in <pass> tags. The example is <pass>password</pass>.</think>')
 })
