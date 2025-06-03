@@ -176,7 +176,7 @@ function App() {
                 )}
               >
                 <BrainCog className="size-4" />
-                Thinking
+                Reasoning
               </button>
               <Select 
                 value={selectedModel} 
