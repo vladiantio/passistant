@@ -8,7 +8,7 @@ export const locales = {
 export const defaultLocale = "en"
 
 // can be a function with custom logic or just a string, `detect` method will handle it
-const DEFAULT_FALLBACK = () => defaultLocale;
+export const DEFAULT_FALLBACK = () => defaultLocale;
 
 export const detectLocale = () => {
   const locale = detect(
