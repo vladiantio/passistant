@@ -17,6 +17,7 @@ type ThinkBlockProps = React.PropsWithChildren & {
 }
 
 export function ThinkBlock(props: ThinkBlockProps) {
+  if (!props.children || props.children?.toString().trim() === '') return null
   return (
     <details className="mb-6">
       <summary className="select-none">
