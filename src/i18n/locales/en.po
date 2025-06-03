@@ -17,6 +17,12 @@ msgstr "Passistant"
 msgid "app.description"
 msgstr "Your personal AI password assistant"
 
+msgid "app.welcome"
+msgstr "Hi, I'm Passistant!"
+
+msgid "app.welcomeDescription"
+msgstr "I can help you generate strong, secure passwords."
+
 #: UI Elements
 msgid "ui.modelSelector.placeholder"
 msgstr "Select a model"
