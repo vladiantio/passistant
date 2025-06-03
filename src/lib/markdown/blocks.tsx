@@ -11,9 +11,11 @@ export function LoadingBlock() {
 
 export function ThinkBlock(props: React.PropsWithChildren) {
   return (
-    <details>
-      <summary>Thinking...</summary>
-      {props.children}
+    <details className="mb-6">
+      <summary className="select-none marker:hidden">Thinking...</summary>
+      <blockquote>
+        {props.children}
+      </blockquote>
     </details>
   )
 }
