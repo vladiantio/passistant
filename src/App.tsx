@@ -124,25 +124,6 @@ function App() {
 
   return (
     <div className="max-w-[800px] mx-auto p-5">
-      <div className="mb-5">
-        <div className="flex items-center gap-2">
-          <Select 
-            value={selectedModel} 
-            onValueChange={setSelectedModel}
-          >
-            <SelectTrigger className="border-0 dark:bg-transparent flex-1">
-              <SelectValue placeholder="Select a model" />
-            </SelectTrigger>
-            <SelectContent>
-              {availableModels.map((model) => (
-                <SelectItem key={model} value={model}>
-                  {model}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
       {initProgressReport && initProgressReport.progress < 1 && (
         <div className="mb-5 space-y-2">
           <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
@@ -163,8 +144,8 @@ function App() {
             >
               <p 
                 className={cn(
-                  "p-2 my-2 rounded-lg",
-                  message.role === 'user' && "bg-input/40 w-1/2"
+                  "p-2 my-2 rounded-lg markdown-content",
+                  message.role === 'user' && "bg-input/40 max-w-1/2"
                 )}
               >
                 <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
@@ -182,19 +163,36 @@ function App() {
             placeholder="Type your message..."
           />
           <PromptInputActions className="justify-between">
-            <button
-              type="button"
-              onClick={() => setEnableThinking(prev => !prev)}
-              className={cn(
-                "rounded-full transition-all flex items-center gap-2 px-3 py-2 h-9",
-                enableThinking
-                  ? "bg-primary/15 text-primary hover:bg-primary/20"
-                  : "text-muted-foreground hover:bg-muted-foreground/15"
-              )}
-            >
-              <BrainCog className="size-4" />
-              Thinking
-            </button>
+            <div className="flex items-center">
+              <button
+                type="button"
+                onClick={() => setEnableThinking(prev => !prev)}
+                className={cn(
+                  "rounded-full transition-all flex items-center gap-2 px-3 py-2 h-9",
+                  enableThinking
+                    ? "bg-primary/15 text-primary hover:bg-primary/20"
+                    : "text-muted-foreground hover:bg-muted-foreground/15"
+                )}
+              >
+                <BrainCog className="size-4" />
+                Thinking
+              </button>
+              <Select 
+                value={selectedModel} 
+                onValueChange={setSelectedModel}
+              >
+                <SelectTrigger className="border-0 dark:bg-transparent shadow-none rounded-full">
+                  <SelectValue placeholder="Select a model" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableModels.map((model) => (
+                    <SelectItem key={model} value={model}>
+                      {model}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <PromptInputAction
               tooltip={isTyping ? "Stop generation" : "Send message"}
             >
