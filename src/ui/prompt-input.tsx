@@ -113,23 +113,20 @@ function PromptInputTextarea({
   }
 
   return (
-    <label className="after:absolute after:inset-0 after:block after:cursor-text">
-      <Textarea
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className={cn(
-          "p-1 min-h-9 w-full resize-none border-none dark:bg-transparent shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
-          !disableAutosize && "field-sizing-content",
-          className
-        )}
-        required
-        style={{
-          maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight,
-        }}
-        {...props}
-      />
-    </label>
+    <Textarea
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onKeyDown={handleKeyDown}
+      className={cn(
+        "p-1 min-h-9 w-full resize-none border-none dark:bg-transparent shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 z-[2]",
+        !disableAutosize && "field-sizing-content",
+        className
+      )}
+      style={{
+        maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight,
+      }}
+      {...props}
+    />
   )
 }
 
