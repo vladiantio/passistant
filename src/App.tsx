@@ -40,7 +40,7 @@ function App() {
   const [isTyping, setIsTyping] = useState(false)
   const [input, setInput] = useState('')
   const [curMessage, setCurMessage] = useState('')
-  const [enableThinking, setEnableThinking] = useState(true)
+  const [enableThinking, setEnableThinking] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
 
   const handleSend = async () => {
