@@ -18,6 +18,7 @@ import { fixUnclosedTags } from './lib/markdown/utils'
 import { t } from '@lingui/core/macro'
 import { Button } from './ui/button'
 import { DEFAULT_MODEL, SYSTEM_PROMPT } from './lib/llm/constants'
+import { CircleProgress } from './ui/circle-progress'
 
 function App() {
   const {
@@ -137,14 +138,15 @@ function App() {
             </div>
           ))}
           {initProgressReport && initProgressReport.progress < 1 && (
-            <div className="space-y-2">
+            <div className="flex gap-2 items-center">
+              <CircleProgress
+                value={initProgressReport.progress}
+                maxValue={1}
+                size={24}
+                suffix="%"
+                useGradient
+              />
               <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div 
-                  className="bg-blue-600 h-2.5 rounded-full transition-all" 
-                  style={{ width: `${initProgressReport.progress * 100}%` }}
-                />
-              </div>
             </div>
           )}
         </div>
