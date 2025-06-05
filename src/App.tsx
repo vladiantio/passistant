@@ -17,9 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { fixUnclosedTags } from './lib/markdown/utils'
 import { t } from '@lingui/core/macro'
 import { Button } from './ui/button'
-import { SYSTEM_PROMPT } from './lib/llm/constants'
-
-const DEFAULT_MODEL = 'Qwen3-0.6B-q4f32_1-MLC'
+import { DEFAULT_MODEL, SYSTEM_PROMPT } from './lib/llm/constants'
 
 function App() {
   const {
