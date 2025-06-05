@@ -1,43 +1,20 @@
 function MessageLoading() {
   return (
     <svg
-      width="24"
+      width="48"
       height="24"
-      viewBox="0 0 24 24"
+      viewBox="0 0 48 24"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-foreground"
+      fill="currentColor"
     >
-      <circle cx="4" cy="12" r="2" fill="currentColor">
-        <animate
-          id="spinner_qFRN"
-          begin="0;spinner_OcgL.end+0.25s"
-          attributeName="cy"
-          calcMode="spline"
-          dur="0.6s"
-          values="12;6;12"
-          keySplines=".33,.66,.66,1;.33,0,.66,.33"
-        />
+      <circle cx="8" cy="12" r="6" opacity="1">
+        <animate id="spinner_qYjJ" begin="0;spinner_t4KZ.end-0.25s" attributeName="opacity" dur="1.5s" values="1;.25;1" fill="freeze"/>
       </circle>
-      <circle cx="12" cy="12" r="2" fill="currentColor">
-        <animate
-          begin="spinner_qFRN.begin+0.1s"
-          attributeName="cy"
-          calcMode="spline"
-          dur="0.6s"
-          values="12;6;12"
-          keySplines=".33,.66,.66,1;.33,0,.66,.33"
-        />
+      <circle cx="24" cy="12" r="6" opacity=".4">
+        <animate begin="spinner_qYjJ.begin+0.15s" attributeName="opacity" dur="1.5s" values="1;.25;1" fill="freeze"/>
       </circle>
-      <circle cx="20" cy="12" r="2" fill="currentColor">
-        <animate
-          id="spinner_OcgL"
-          begin="spinner_qFRN.begin+0.2s"
-          attributeName="cy"
-          calcMode="spline"
-          dur="0.6s"
-          values="12;6;12"
-          keySplines=".33,.66,.66,1;.33,0,.66,.33"
-        />
+      <circle cx="40" cy="12" r="6" opacity=".3">
+        <animate id="spinner_t4KZ" begin="spinner_qYjJ.begin+0.3s" attributeName="opacity" dur="1.5s" values="1;.25;1" fill="freeze"/>
       </circle>
     </svg>
   )
