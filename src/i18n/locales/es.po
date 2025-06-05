@@ -55,5 +55,9 @@ msgstr "No se pudo generar la respuesta. Por favor, inténtalo de nuevo."
 msgid "loading.model"
 msgstr "Cargando modelo..."
 
-msgid "loading.thinking"
+#: Chat
+msgid "chat.thinking"
 msgstr "Pensando..."
+
+msgid "chat.thoughtCompleted"
+msgstr "Pensamiento completado"

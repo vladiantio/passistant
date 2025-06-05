@@ -55,5 +55,9 @@ msgstr "Failed to generate completion. Please try again."
 msgid "loading.model"
 msgstr "Loading model..."
 
-msgid "loading.thinking"
+# Chat
+msgid "chat.thinking"
 msgstr "Thinking..."
+
+msgid "chat.thoughtCompleted"
+msgstr "Thought completed"

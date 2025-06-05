@@ -22,9 +22,9 @@ export function ThinkBlock(props: ThinkBlockProps) {
     <details className="mb-6">
       <summary className="select-none">
         {props.isThinking ? (
-          <ShiningText>{t`loading.thinking`}</ShiningText>
+          <ShiningText>{t`chat.thinking`}</ShiningText>
         ) : (
-          t`feature.reasoning`
+          t`chat.thoughtCompleted`
         )}
       </summary>
       <blockquote>
