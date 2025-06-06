@@ -11,7 +11,7 @@ import {
   PromptInputSubmitButton,
   PromptInputTextarea,
 } from './ui/prompt-input'
-import { ArrowUp, BrainCog, GithubIcon, Settings2, Square } from 'lucide-react'
+import { ArrowUp, BrainCog, Settings2, Square, StarIcon } from 'lucide-react'
 import { cn } from './lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { fixUnclosedTags } from './lib/markdown/utils'
@@ -119,47 +119,48 @@ function App() {
   }, [curMessage])
 
   return (
-    <div className="max-w-[800px] mx-auto p-5 flex flex-col justify-center min-h-dvh">
+    <div className="p-5 flex flex-col justify-center min-h-dvh">
       {userMessages.length > 0 ? (
-        <div className="mb-5 overflow-y-auto h-[calc(100dvh-10rem)]">
-          {userMessages.map((message, index) => (
-            <div
-              key={index}
-              className={cn("flex", message.role === 'user' && "justify-end")}
-            >
+        <div className="overflow-y-auto h-[calc(100dvh-10rem)]">
+          <div className="max-w-[800px] w-full mx-auto flex flex-col gap-5 mb-5">
+            {userMessages.map((message, index) => (
               <div
-                className={cn(
-                  "p-2 my-2 rounded-lg markdown-content",
-                  message.role === 'user' && "bg-input/40 max-w-1/2"
-                )}
+                key={index}
+                className={cn("flex", message.role === 'user' && "justify-end")}
               >
-                <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
+                <div
+                  className={cn(
+                    "markdown-content",
+                    message.role === 'user' && "bg-input/40 max-w-[70%] px-5 py-2.5 rounded-3xl"
+                  )}
+                >
+                  <Markdown options={markdownOptions}>{typeof message.content === 'string' ? message.content : ''}</Markdown>
+                </div>
               </div>
-            </div>
-          ))}
-          {initProgressReport && initProgressReport.progress < 1 && (
-            <div className="flex gap-2 items-center">
-              <CircleProgress
-                value={initProgressReport.progress}
-                maxValue={1}
-                size={24}
-                suffix="%"
-                useGradient
-              />
-              <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
-            </div>
-          )}
+            ))}
+            {initProgressReport && initProgressReport.progress < 1 && (
+              <div className="flex gap-2 items-center">
+                <CircleProgress
+                  value={initProgressReport.progress}
+                  maxValue={1}
+                  size={24}
+                  suffix="%"
+                  useGradient
+                />
+                <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
-        <div className="flex items-center justify-center flex-col gap-4 mb-16">
-          <div className="flex items-center gap-4">
-            <img src="/favicon.svg" alt="Logo" className="size-16" />
-            <h1 className="text-2xl font-bold">{t`app.welcome`}</h1>
-          </div>
+        <div className="max-w-[800px] w-full mx-auto flex items-center justify-center flex-col gap-4 mb-16">
+          <img src="/favicon.svg" alt="Logo" className="size-16" />
+          <h1 className="text-2xl font-bold">{t`app.welcome`}</h1>
           <p className="text-muted-foreground text-center text-pretty">{t`app.welcomeDescription`}</p>
         </div>
       )}
       <PromptInput
+        className="max-w-[800px] w-full mx-auto"
         value={input}
         onValueChange={(value) => setInput(value)}
         onSubmit={handleSend}
@@ -228,7 +229,7 @@ function App() {
                 asChild
               >
                 <a href="https://github.com/vladiantio/passistant" target="_blank" rel="noopener noreferrer">
-                  <GithubIcon className="size-4" />
+                  <StarIcon className="size-4" />
                 </a>
               </Button>
             </PromptInputAction>
