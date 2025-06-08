@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import type { WebWorkerMLCEngine, InitProgressReport } from '@mlc-ai/web-llm'
+import { checkGPUAvailability } from '@/utils/navigator'
 
 export function useMLCEngine() {
   const [engine, setEngine] = useState<WebWorkerMLCEngine | null>(null)
@@ -7,6 +8,7 @@ export function useMLCEngine() {
   const [isModelLoading, setIsModelLoading] = useState(false)
   const [currentModel, setCurrentModel] = useState<string | null>(null)
   const [error, setError] = useState<Error | null>(null)
+  const [isWebGPUAvailable, setIsWebGPUAvailable] = useState<boolean | null>(null)
 
   const loadModel = useCallback(async (model: string) => {
     if (!engine) return false;
@@ -29,6 +31,14 @@ export function useMLCEngine() {
   useEffect(() => {
     const init = async () => {
       try {
+        // Check WebGPU availability first
+        const hasWebGPU = await checkGPUAvailability();
+        setIsWebGPUAvailable(hasWebGPU);
+
+        if (!hasWebGPU) {
+          throw new Error('WebGPU is not available on this system. Please check if your browser supports WebGPU and if your GPU is properly configured.');
+        }
+
         const { WebWorkerMLCEngine } = await import('@mlc-ai/web-llm')
         const engine = new WebWorkerMLCEngine(
           new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' }),
@@ -53,6 +63,7 @@ export function useMLCEngine() {
     isModelLoading,
     currentModel,
     error,
-    loadModel 
+    loadModel,
+    isWebGPUAvailable,
   }
 }
