@@ -8,6 +8,8 @@ import { ChatMessages } from './components/ChatMessages'
 import { WelcomeScreen } from './components/WelcomeScreen'
 import { SettingsPanel } from './components/SettingsPanel'
 import { ChatInput } from './components/ChatInput'
+import { CircleLoader } from './ui/loader'
+import { Alert, AlertDescription, AlertTitle } from './ui/alert'
 
 function App() {
   const {
@@ -16,6 +18,7 @@ function App() {
     loadModel,
     currentModel,
     isModelLoading,
+    isWebGPUAvailable,
   } = useMLCEngine()
   const availableModels = useAvailableModels()
   const [selectedModel, setSelectedModel] = useState(DEFAULT_MODEL)
@@ -106,6 +109,27 @@ function App() {
       setUserMessages(prev => prev.map((message, i) => i === prev.length - 1 ? { ...message, content: fixUnclosedTags(curMessage) } : message))
     }
   }, [curMessage])
+
+  if (isWebGPUAvailable === null) {
+    return (
+      <div className="p-5 grid place-items-center min-h-dvh">
+        <CircleLoader />
+      </div>
+    )
+  }
+
+  if (!isWebGPUAvailable) {
+    return (
+      <div className="p-5 grid place-items-center min-h-dvh">
+        <Alert variant="destructive" className="max-w-md">
+          <AlertTitle>WebGPU is not available</AlertTitle>
+          <AlertDescription>
+            Please check if your browser supports WebGPU and if your GPU is properly configured.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  }
 
   return (
     <div className="p-5 flex flex-col justify-center min-h-dvh">
