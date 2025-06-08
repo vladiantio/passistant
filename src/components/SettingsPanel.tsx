@@ -3,6 +3,7 @@ import { cn } from '../lib/utils'
 import { Button } from '../ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { t } from '@lingui/core/macro'
+import { PromptInputAction } from '@/ui/prompt-input'
 
 interface SettingsPanelProps {
   selectedModel: string
@@ -31,21 +32,26 @@ export function SettingsPanel({
         className={cn(
           "rounded-full transition-all flex items-center gap-2 px-3 py-2 h-9",
           enableThinking
-            ? "bg-secondary/15 text-secondary hover:bg-secondary/20"
+            ? "bg-accent-foreground/15 text-accent-foreground hover:bg-accent-foreground/20"
             : "text-muted-foreground hover:bg-muted-foreground/15"
         )}
       >
         <BrainCog className="size-4" />
         {t`feature.reasoning`}
       </button>
-      <Button
-        variant="ghost"
-        size="icon"
-        className={cn("rounded-full", showSettings && "!text-secondary")}
-        onClick={() => onShowSettingsChange(!showSettings)}
+      <PromptInputAction
+        tooltip={t`button.settings`}
+        disabled={false}
       >
-        <Settings2 className="size-4" />
-      </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className={cn("rounded-full", showSettings && "!text-accent-foreground")}
+          onClick={() => onShowSettingsChange(!showSettings)}
+        >
+          <Settings2 className="size-4" />
+        </Button>
+      </PromptInputAction>
       {showSettings && (
         <Select 
           value={selectedModel} 
@@ -63,16 +69,21 @@ export function SettingsPanel({
           </SelectContent>
         </Select>
       )}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="rounded-full"
-        asChild
+      <PromptInputAction
+        tooltip={t`button.github`}
+        disabled={false}
       >
-        <a href="https://github.com/vladiantio/passistant" target="_blank" rel="noopener noreferrer">
-          <StarIcon className="size-4" />
-        </a>
-      </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-full"
+          asChild
+        >
+          <a href="https://github.com/vladiantio/passistant" target="_blank" rel="noopener noreferrer">
+            <StarIcon className="size-4" />
+          </a>
+        </Button>
+      </PromptInputAction>
     </div>
   )
 }
