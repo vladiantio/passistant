@@ -3,6 +3,7 @@ import Markdown from 'markdown-to-jsx'
 import { cn } from '../lib/utils'
 import { markdownOptions } from '../lib/markdown/options'
 import { CircleProgress } from '../ui/circle-progress'
+import { CircleLoader } from '@/ui/loader'
 
 interface ChatMessagesProps {
   messages: (ChatCompletionUserMessageParam | ChatCompletionAssistantMessageParam)[]
@@ -33,13 +34,17 @@ export function ChatMessages({ messages, initProgressReport }: ChatMessagesProps
         ))}
         {initProgressReport && initProgressReport.progress < 1 && (
           <div className="flex gap-2 items-center">
-            <CircleProgress
-              value={initProgressReport.progress}
-              maxValue={1}
-              size={24}
-              suffix="%"
-              useGradient
-            />
+            {initProgressReport.progress === 0 ? (
+              <CircleLoader size={24} />
+            ) : (
+              <CircleProgress
+                value={initProgressReport.progress}
+                maxValue={1}
+                size={24}
+                suffix="%"
+                useGradient
+              />
+            )}
             <p className="text-sm text-muted-foreground">{initProgressReport.text}</p>
           </div>
         )}
