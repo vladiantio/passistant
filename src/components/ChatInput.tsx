@@ -34,6 +34,7 @@ export function ChatInput({
       disabled={disabled}
     >
       <PromptInputTextarea
+        autoFocus
         placeholder={t`ui.prompt.placeholder`}
       />
       <PromptInputActions className="justify-between">
