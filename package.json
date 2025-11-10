@@ -11,9 +11,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@lingui/core": "^5.3.2",
-    "@lingui/detect-locale": "^5.3.2",
-    "@lingui/react": "^5.3.2",
     "@mlc-ai/web-llm": "^0.2.79",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
@@ -21,18 +18,19 @@
     "@tailwindcss/vite": "^4.1.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "i18next": "^25.6.1",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-resources-to-backend": "^1.2.1",
     "lucide-react": "^0.511.0",
     "markdown-to-jsx": "^7.7.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-i18next": "^16.2.4",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
-    "@lingui/cli": "^5.3.2",
-    "@lingui/swc-plugin": "^5.5.2",
-    "@lingui/vite-plugin": "^5.3.2",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
