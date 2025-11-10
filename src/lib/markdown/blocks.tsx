@@ -1,10 +1,10 @@
 import { Button } from "@/ui/button"
-import { MessageLoading } from "@/ui/message";
-import { copyToClipboard } from "@/utils/clipboard";
+import { MessageLoading } from "@/ui/message"
+import { copyToClipboard } from "@/utils/clipboard"
 import { Check, Copy } from "lucide-react"
-import { useState } from "react";
-import { t } from "@lingui/core/macro"
-import { ShiningText } from "@/ui/shining-text";
+import { useState } from "react"
+import { ShiningText } from "@/ui/shining-text"
+import { useTranslation } from "react-i18next"
 
 export function LoadingBlock() {
   return (
@@ -17,14 +17,15 @@ type ThinkBlockProps = React.PropsWithChildren & {
 }
 
 export function ThinkBlock(props: ThinkBlockProps) {
+  const { t } = useTranslation()
   if (!props.children || props.children?.toString().trim() === '') return null
   return (
     <details className="mb-6">
       <summary className="select-none">
         {props.isThinking ? (
-          <ShiningText>{t`chat.thinking`}</ShiningText>
+          <ShiningText>{t("chat.thinking")}</ShiningText>
         ) : (
-          t`chat.thoughtCompleted`
+          t("chat.thoughtCompleted")
         )}
       </summary>
       <blockquote>
@@ -35,14 +36,14 @@ export function ThinkBlock(props: ThinkBlockProps) {
 }
 
 export function PasswordBlock(props: React.PropsWithChildren) {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false)
 
   const doCopyToClipboard = async () => {
     if (!props.children) return
-    const success = await copyToClipboard(props.children?.toString());
-    setCopied(success);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    const success = await copyToClipboard(props.children?.toString())
+    setCopied(success)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <span className="bg-input/40 pl-2 pr-0.5 py-0.5 text-sm rounded-md inline-flex items-center gap-2 font-mono">

@@ -1,0 +1,17 @@
+{
+  "app.name": "Passistant",
+  "app.description": "Tu asistente personal de contraseñas con IA",
+  "app.welcome": "Hola, soy Passistant!",
+  "app.welcomeDescription": "Puedo ayudarte a generar contraseñas fuertes y seguras. No enviaré ningún dato a un servidor.",
+  "ui.modelSelector.placeholder": "Selecciona un modelo",
+  "ui.prompt.placeholder": "Escribe tu mensaje...",
+  "button.send": "Enviar mensaje",
+  "button.stop": "Detener generación",
+  "button.settings": "Configuración",
+  "button.github": "Star en GitHub",
+  "feature.reasoning": "Razonamiento",
+  "error.completionFailed": "No se pudo generar la respuesta. Por favor, inténtalo de nuevo.",
+  "loading.model": "Cargando modelo...",
+  "chat.thinking": "Pensando...",
+  "chat.thoughtCompleted": "Pensamiento completado"
+}

@@ -1,12 +1,12 @@
-import { ArrowUp, Square } from 'lucide-react'
-import { t } from '@lingui/core/macro'
+import { ArrowUp, Square } from "lucide-react"
+import { useTranslation } from "react-i18next"
 import {
   PromptInput,
   PromptInputAction,
   PromptInputActions,
   PromptInputSubmitButton,
   PromptInputTextarea,
-} from '../ui/prompt-input'
+} from "../ui/prompt-input"
 
 interface ChatInputProps {
   input: string
@@ -25,6 +25,7 @@ export function ChatInput({
   disabled,
   children,
 }: ChatInputProps) {
+  const { t } = useTranslation()
   return (
     <PromptInput
       className="max-w-[800px] w-full mx-auto"
@@ -35,12 +36,12 @@ export function ChatInput({
     >
       <PromptInputTextarea
         autoFocus
-        placeholder={t`ui.prompt.placeholder`}
+        placeholder={t("ui.prompt.placeholder")}
       />
       <PromptInputActions className="justify-between">
         {children}
         <PromptInputAction
-          tooltip={isTyping ? t`button.stop` : t`button.send`}
+          tooltip={isTyping ? t("button.stop") : t("button.send")}
         >
           <PromptInputSubmitButton
             variant="default"

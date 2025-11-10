@@ -1,9 +1,9 @@
-import { BrainCog, Settings2, StarIcon } from 'lucide-react'
-import { cn } from '../lib/utils'
-import { Button } from '../ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { t } from '@lingui/core/macro'
-import { PromptInputAction } from '@/ui/prompt-input'
+import { BrainCog, Settings2, StarIcon } from "lucide-react"
+import { cn } from "../lib/utils"
+import { Button } from "../ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { useTranslation } from "react-i18next"
+import { PromptInputAction } from "@/ui/prompt-input"
 
 interface SettingsPanelProps {
   selectedModel: string
@@ -24,6 +24,7 @@ export function SettingsPanel({
   showSettings,
   onShowSettingsChange,
 }: SettingsPanelProps) {
+  const { t } = useTranslation()
   return (
     <div className="flex items-center">
       <button
@@ -37,10 +38,10 @@ export function SettingsPanel({
         )}
       >
         <BrainCog className="size-4" />
-        {t`feature.reasoning`}
+        {t("feature.reasoning")}
       </button>
       <PromptInputAction
-        tooltip={t`button.settings`}
+        tooltip={t("button.settings")}
         disabled={false}
       >
         <Button
@@ -58,7 +59,7 @@ export function SettingsPanel({
           onValueChange={onModelChange}
         >
           <SelectTrigger className="border-0 dark:bg-transparent shadow-none rounded-full">
-            <SelectValue placeholder={t`placeholder.model`} />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {availableModels.map((model) => (
@@ -70,7 +71,7 @@ export function SettingsPanel({
         </Select>
       )}
       <PromptInputAction
-        tooltip={t`button.github`}
+        tooltip={t("button.github")}
         disabled={false}
       >
         <Button
