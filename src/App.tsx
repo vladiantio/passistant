@@ -4,10 +4,10 @@ import { useMLCEngine } from './lib/llm/useMLCEngine'
 import { useAvailableModels } from './lib/llm/useAvailableModels'
 import { fixUnclosedTags } from './lib/markdown/utils'
 import { DEFAULT_MODEL, SYSTEM_PROMPT } from './lib/llm/constants'
-import { ChatMessages } from './components/ChatMessages'
+import { ChatMessages } from './features/chat/ChatMessages'
 import { WelcomeScreen } from './components/WelcomeScreen'
-import { SettingsPanel } from './components/SettingsPanel'
-import { ChatInput } from './components/ChatInput'
+import { ChatSettingsPanel } from './features/chat/ChatSettingsPanel'
+import { ChatInput } from './features/chat/ChatInput'
 import { CircleLoader } from './ui/loader'
 import { Alert, AlertDescription, AlertTitle } from './ui/alert'
 
@@ -148,7 +148,7 @@ function App() {
         isTyping={isTyping}
         disabled={(!input.trim() || !selectedModel || isModelLoading) && !isTyping}
       >
-        <SettingsPanel
+        <ChatSettingsPanel
           selectedModel={selectedModel}
           availableModels={availableModels}
           onModelChange={setSelectedModel}

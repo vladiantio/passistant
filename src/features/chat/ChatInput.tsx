@@ -6,7 +6,7 @@ import {
   PromptInputActions,
   PromptInputSubmitButton,
   PromptInputTextarea,
-} from "../ui/prompt-input"
+} from "../../ui/prompt-input"
 
 interface ChatInputProps {
   input: string

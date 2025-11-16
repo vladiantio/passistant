@@ -1,11 +1,11 @@
 import { BrainCog, Settings2, StarIcon } from "lucide-react"
-import { cn } from "../lib/utils"
-import { Button } from "../ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { cn } from "../../lib/utils"
+import { Button } from "../../ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select"
 import { useTranslation } from "react-i18next"
 import { PromptInputAction } from "@/ui/prompt-input"
 
-interface SettingsPanelProps {
+interface ChatSettingsPanelProps {
   selectedModel: string
   availableModels: string[]
   onModelChange: (model: string) => void
@@ -15,7 +15,7 @@ interface SettingsPanelProps {
   onShowSettingsChange: (show: boolean) => void
 }
 
-export function SettingsPanel({
+export function ChatSettingsPanel({
   selectedModel,
   availableModels,
   onModelChange,
@@ -23,7 +23,7 @@ export function SettingsPanel({
   onEnableThinkingChange,
   showSettings,
   onShowSettingsChange,
-}: SettingsPanelProps) {
+}: ChatSettingsPanelProps) {
   const { t } = useTranslation()
   return (
     <div className="flex items-center">

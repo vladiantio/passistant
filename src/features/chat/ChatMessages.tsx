@@ -1,8 +1,8 @@
 import type { ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
 import Markdown from 'markdown-to-jsx'
-import { cn } from '../lib/utils'
-import { markdownOptions } from '../lib/markdown/options'
-import { CircleProgress } from '../ui/circle-progress'
+import { cn } from '../../lib/utils'
+import { markdownOptions } from '../../lib/markdown/options'
+import { CircleProgress } from '../../ui/circle-progress'
 import { CircleLoader } from '@/ui/loader'
 
 interface ChatMessagesProps {
