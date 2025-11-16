@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react'
-import type { ChatCompletionMessageParam, ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam } from '@mlc-ai/web-llm'
-import { useMLCEngine } from './lib/llm/useMLCEngine'
-import { useAvailableModels } from './lib/llm/useAvailableModels'
-import { fixUnclosedTags } from './lib/markdown/utils'
-import { DEFAULT_MODEL, SYSTEM_PROMPT } from './lib/llm/constants'
-import { ChatMessages } from './features/chat/ChatMessages'
-import { WelcomeScreen } from './components/WelcomeScreen'
-import { ChatSettingsPanel } from './features/chat/ChatSettingsPanel'
-import { ChatInput } from './features/chat/ChatInput'
-import { CircleLoader } from './ui/loader'
-import { Alert, AlertDescription, AlertTitle } from './ui/alert'
+import { useEffect, useState } from "react"
+import type { ChatCompletionMessageParam, ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam } from "@mlc-ai/web-llm"
+import { useMLCEngine } from "@/lib/llm/useMLCEngine"
+import { useAvailableModels } from "@/lib/llm/useAvailableModels"
+import { fixUnclosedTags } from "@/lib/markdown/utils"
+import { DEFAULT_MODEL, SYSTEM_PROMPT } from "@/lib/llm/constants"
+import { Alert, AlertDescription, AlertTitle } from "@/ui/alert"
+import { CircleLoader } from "@/ui/loader"
+import { ChatMessages } from "./chat-messages"
+import { ChatWelcomeScreen } from "./chat-welcome-screen"
+import { ChatSettingsPanel } from "./chat-settings-panel"
+import { ChatInput } from "./chat-input"
 
-function App() {
+export function ChatPage() {
   const {
     engine,
     initProgressReport,
@@ -24,14 +24,14 @@ function App() {
   const [selectedModel, setSelectedModel] = useState(DEFAULT_MODEL)
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([
     {
-      role: 'system',
+      role: "system",
       content: SYSTEM_PROMPT,
     },
   ])
   const [userMessages, setUserMessages] = useState<(ChatCompletionUserMessageParam | ChatCompletionAssistantMessageParam)[]>([])
   const [isTyping, setIsTyping] = useState(false)
-  const [input, setInput] = useState('')
-  const [curMessage, setCurMessage] = useState('')
+  const [input, setInput] = useState("")
+  const [curMessage, setCurMessage] = useState("")
   const [enableThinking, setEnableThinking] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
 
@@ -46,22 +46,22 @@ function App() {
     if (!input.trim() || !selectedModel || isModelLoading) return
     
     const message: ChatCompletionUserMessageParam = {
-      role: 'user',
+      role: "user",
       content: input,
     }
     
     const newMessages = [...messages, message]
     setMessages(newMessages)
     const aiMessage: ChatCompletionAssistantMessageParam = {
-      role: 'assistant',
-      content: '<loading />',
+      role: "assistant",
+      content: "<loading />",
     };
     setUserMessages(prev => [
       ...prev,
       message,
       aiMessage,
     ])
-    setInput('')
+    setInput("")
 
     if (currentModel != selectedModel) {
       const success = await loadModel(selectedModel)
@@ -85,10 +85,10 @@ function App() {
       })
 
       if (!completion) {
-        throw new Error('Completion is undefined')
+        throw new Error("Completion is undefined")
       }
 
-      setCurMessage('')
+      setCurMessage("")
       for await (const chunk of completion) {
         const curDelta = chunk.choices[0]?.delta?.content
         if (curDelta) {
@@ -98,7 +98,7 @@ function App() {
       const finalMessage = await engine.getMessage();
       setCurMessage(finalMessage);
     } catch (error) {
-      console.error('Error generating completion:', error)
+      console.error("Error generating completion:", error)
     } finally {
       setIsTyping(false)
     }
@@ -139,7 +139,7 @@ function App() {
           initProgressReport={initProgressReport}
         />
       ) : (
-        <WelcomeScreen />
+        <ChatWelcomeScreen />
       )}
       <ChatInput
         input={input}
@@ -161,5 +161,3 @@ function App() {
     </div>
   )
 }
-
-export default App

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-export function WelcomeScreen() {
+export function ChatWelcomeScreen() {
   const { t } = useTranslation()
   return (
     <div className="max-w-[800px] w-full mx-auto flex items-center justify-center flex-col gap-4 mb-16">
